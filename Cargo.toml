@@ -1,0 +1,28 @@
+[package]
+name = "{{project-name}}"
+version = "0.1.0"
+authors = ["{{authors}}"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+ch32v0 = { version = "0.1.7", features = ["critical-section"] }
+qingke = "0.1.7"
+qingke-rt = "0.1.7"
+panic-halt = "0.2.0"
+
+[dependencies.ch32v00x-hal]
+git = "https://github.com/ch32-rs/ch32v00x-hal.git"
+rev = "9211a1de6b069b40fcc918df225fe4e28ed6b5a3"
+features = ["ch32v003", "rt"]
+
+[profile.dev]
+# Optimize for size - firmware image will quickly be too large to flash - so enabled even for dev.
+opt-level = "z"
+
+[profile.release]
+strip = false
+lto = true
+# Optimize for size.
+opt-level = "z"
